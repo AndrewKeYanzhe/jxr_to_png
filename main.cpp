@@ -78,6 +78,11 @@ DWORD WINAPI ThreadFunc(LPVOID lpParam) {
                 v = XMLoadHalf4((XMHALF4 * )((HALF *) pixels + i * 4 * width + 4 * j));
             }
 
+            //   scale linearly by 2.03. this is because apps like Chrome and
+            //   Lightroom normalise HDR photo exposure by dividing by 203 nits, then
+            //   multiplying by device SDR brightness (I use 100 nits)
+            v = XMVectorMultiply(v, XMVectorReplicate(2.03f));
+
             v = XMVectorSaturate(XMVector3Transform(v, scrgb_to_bt2100));
 
             auto bt2020 = XMFLOAT4A();

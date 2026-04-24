@@ -6,6 +6,10 @@ This is a simple command line tool for converting HDR JPEG XR files, such as Win
 
 The output format is 16 bit PNG with BT.2100 + PQ color space, but the actual data is quantized to 10 bits to try to keep the size reasonably low. The files should display properly in any Chromium-based browser, which includes Electron apps like the desktop version of Discord.
 
+# Notes:
+
+This app will scale the luminance of the HDR JXR image by 2.03 and encode to PNG PQ BT2020. This is because apps like Chrome and Lightroom normalise HDR photo exposure by dividing by 203 nits, then multiplying by device SDR brightness (I use 100 nits).
+
 # Usage
 ```
 jxr_to_png input.jxr [output.png]
